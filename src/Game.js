@@ -41,21 +41,25 @@ class Game {
         this.playNextMove(event.state.moves);
         break;
       case "gameState":
-        this.playNextMove(event.moves);
+        this.playNextMove(event.moves,event);
         break;
       default:
         console.log("Unhandled game event : " + JSON.stringify(event));
     }
   }
 
-  playNextMove(previousMoves) {
+  playNextMove(previousMoves,infos) {
     const moves = (previousMoves === "") ? [] : previousMoves.split(" ");
     if (this.isTurn(this.colour, moves)) {
-      const nextMove = this.player.getNextMove(moves);
-      if (nextMove) {
-        console.log(this.name + " as " + this.colour + " to move " + nextMove);
-        this.api.makeMove(this.gameId, nextMove);
+      const fun = async () => {
+        let z = await this.player.getNextMove(moves)
+        return z;
       }
+      fun().then(r=>{
+        console.log(this.name + " as " + this.colour + " to move " + r);
+        this.api.makeMove(this.gameId, r);
+        this.player.timeLeft = this.colour === 'white' ? infos.wtime : infos.btime;
+      });
     }
   }
 

