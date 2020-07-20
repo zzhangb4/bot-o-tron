@@ -58,3 +58,4 @@ class StockfishEngine {
 sf.getNextMove(['e2e3','e7e5','d1h5','d7d5']);*/
 
 module.exports = StockfishEngine;
+
